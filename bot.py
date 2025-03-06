@@ -209,7 +209,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🌟 Welcome to the most overengineered time-telling bot ever created!\n\n"
         "I don't simply tell you the time - I take you on a journey through the very fabric of temporal existence. "
         "Prepare yourself for philosophical musings, wild guesses, and questionable scientific methods.\n\n"
-        "Use the button below to begin your temporal adventure!"
+        "Use the button below to begin your temporal adventure!\n\n"
+        "Type /help to learn more about how I work. 🤓"
     )
 
     await update.message.reply_text(welcome_message, reply_markup=get_keyboard())
@@ -235,10 +236,36 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await time_process(update, context)
 
 
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    help_text = (
+        "🤖 *ClockBlocker Bot - Technical Details*\n\n"
+        "*How it works:*\n"
+        "1. Uses OpenRouter API (DeepSeek model) for philosophical discussions\n"
+        "2. Implements response caching (30-min cache duration)\n"
+        "3. Rate limited to 2 requests per minute per user\n"
+        "4. Runs in Docker for reliable deployment\n\n"
+        "*Features:*\n"
+        "• AI-powered time philosophy 🤔\n"
+        "• Absurd time predictions 🔮\n"
+        "• Random scientific methods 🧪\n"
+        "• Actual time link (when desperate) 😅\n\n"
+        "*Source Code:*\n"
+        "https://github.com/tengfone/clockblocker\n\n"
+        "*Created with:* Python, python-telegram-bot, OpenRouter API"
+    )
+
+    await update.message.reply_text(
+        help_text,
+        parse_mode="Markdown",
+        disable_web_page_preview=True,  # Prevents the GitHub link from generating a preview
+    )
+
+
 def main():
     application = Application.builder().token(TELEGRAM_TOKEN).build()
 
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", help_command))
     application.add_handler(
         MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message)
     )
