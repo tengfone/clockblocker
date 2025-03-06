@@ -3,6 +3,7 @@
 The most unnecessarily complex time-telling Telegram bot ever created. Because why check the time normally when you can embark on a philosophical journey through space-time?
 
 ![ClockBlocker Bot](./icon.png)
+![ClockBlocker Demo](./demo.gif)
 
 ## Features
 
